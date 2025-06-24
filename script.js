@@ -1,27 +1,21 @@
-const nome = document.getElementById("nameInput");
-const r1 = document.getElementById("r1");
-const r2 = document.getElementById("r2");
-const r3 = document.getElementById("r3");
+const input = document.getElementById('searchInput');
+const listItems = document.querySelectorAll('#nameList li');
 
-nome.addEventListener("input", function() {
-    if (valor === "j" || valor === "jo") {
-        r1.style.display = "block";
-        r2.style.display = "none";
-        r3.style.display = "none";
-    } 
-    else if (valor === "c" || valor === "cl") {
-        r1.style.display = "none";
-        r2.style.display = "block";
-        r3.style.display = "none";
-    } 
-    else if (valor === "m" || valor === "ma") {
-        r1.style.display = "none";
-        r2.style.display = "none";
-        r3.style.display = "block";
-    } 
-    else {
-        r1.style.display = "none";
-        r2.style.display = "none";
-        r3.style.display = "none";
-    }
-});
+input.addEventListener('input', () => {
+    const pesquisa = input.value.toLowerCase();
+
+
+    listItems.forEach(item => {
+        const texto = item.textContent;
+        const textoP = texto.toLowerCase();
+
+        if (pesquisa && textoP.includes(pesquisa)) {
+            const comeco = textoP.indexOf(pesquisa);
+            const fim = comeco + pesquisa.length;
+            const destacado = `${texto.substring(0, comeco)}<b>${texto.substring(comeco, fim)}</b>${texto.substring(fim)}`;
+            item.innerHTML = destacado;
+        } else {
+            item.innerHTML = texto;
+        }
+    });
+})
